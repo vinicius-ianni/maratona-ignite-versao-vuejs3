@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* comentario qualquer */
+.title-test {
+  @apply text-5xl font-bold text-red-600;
+}
+
+body {
+  @apply bg-zinc-500 text-zinc-100;
+  -webkit-font-smoothing: antialiased;
+  /*@apply bg-gray-1 text-zinc-100; definitivo*/
+}
