@@ -1,18 +1,18 @@
 <script lang="ts">
+import { defineComponent } from 'vue'
 import Header from '../components/Header.vue'
 import { provideApolloClient, useMutation } from '@vue/apollo-composable'
 import apolloClient from '../lib/apollo'
 import gql from 'graphql-tag'
-import { computed } from 'vue'
 
-export default {
+export default defineComponent ({
   data () {
     return {
-      userName: '',
-      userEmail: '',
-      SucessMessage: '',
-      UserIsValid: 'pending',
-      EmailIsValid: 'pending'
+      userName: { type: String, default: '' },
+      userEmail: { type: String, default: '' },
+      SuccessMessage: { type: String, default: '' },
+      UserIsValid: { type: String, default: 'pending' },
+      EmailIsValid: { type: String, default: 'pending' }
     }
   },
   methods: {
@@ -42,7 +42,7 @@ export default {
 
       await createSubscriber()
 
-//{"data":{"createSubscriber":{"id":"cl5mlqhpr22ek0clpin2c5evo","__typename":"Subscriber"}}}
+      //{"data":{"createSubscriber":{"id":"cl5mlqhpr22ek0clpin2c5evo","__typename":"Subscriber"}}}
 
       return {
         createSubscriber
@@ -50,38 +50,31 @@ export default {
     },
     submitForm () {
       if (this.UserIsValid === 'valid' && this.EmailIsValid === 'valid') {
-        console.log('enviando....')
-        console.log(this.userName)
-        console.log(this.userEmail)
         const result = this.saveForm()
         if (result) {
-          console.log('resultado')
-          console.log(result)
           this.SuccessMessage = 'Cadastro Enviado !'
         }
       }
     },
-    validateForm (formValue) {
+    validateForm (formValue: String) :String {
       if (formValue === 'user') {
         if (this.userName === '') {
           return (this.UserIsValid = 'invalid')
-        } else {
-          return (this.UserIsValid = 'valid')
         }
+        return (this.UserIsValid = 'valid')
       }
       if (formValue === 'email') {
         if (this.userEmail === '') {
           return (this.EmailIsValid = 'invalid')
-        } else {
-          return (this.EmailIsValid = 'valid')
         }
+        return (this.EmailIsValid = 'valid')
       }
     }
   },
   components: {
     Header
   }
-}
+})
 </script>
 
 <template>
