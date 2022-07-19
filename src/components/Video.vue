@@ -1,4 +1,8 @@
 <script lang="ts">
+import { computed, toRefs, defineComponent } from 'vue'
+import { useQuery, provideApolloClient } from '@vue/apollo-composable'
+import apolloClient from '../lib/apollo'
+import gql from 'graphql-tag'
 import {
   PhDiscordLogo,
   PhLightning,
@@ -9,15 +13,9 @@ import {
 import { Player, Youtube, Ui, DefaultUi } from '@vime/vue-next'
 import '@vime/core/themes/default.css'
 
-import { useQuery, provideApolloClient } from '@vue/apollo-composable'
-import apolloClient from '../lib/apollo'
-import gql from 'graphql-tag'
-import { computed, toRefs } from 'vue'
-
-export default {
+export default defineComponent({
   props: {
-    lessonSlug: String,
-    default: ''
+    lessonSlug: { type: String, default: '' }
   },
   setup (props) {
     provideApolloClient(apolloClient)
@@ -82,7 +80,7 @@ export default {
     Ui,
     DefaultUi
   }
-}
+})
 </script>
 
 <template>

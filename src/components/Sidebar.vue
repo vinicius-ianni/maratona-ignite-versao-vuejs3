@@ -1,6 +1,7 @@
 <script lang="ts">
-import Lesson from './Lesson.vue'
 
+import { defineComponent } from 'vue'
+import Lesson from './Lesson.vue'
 import { useQuery, provideApolloClient } from '@vue/apollo-composable'
 import { ApolloClient, InMemoryCache } from '@apollo/client/core'
 import gql from 'graphql-tag'
@@ -8,7 +9,7 @@ import { computed } from 'vue'
 import { isPast, format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 
-export default {
+export default defineComponent ({
   setup () {
     const cache = new InMemoryCache()
 
@@ -65,7 +66,7 @@ export default {
       return isPast(new Date(dataString))
     }
   }
-}
+})
 </script>
 
 <template>

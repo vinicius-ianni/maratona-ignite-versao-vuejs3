@@ -1,14 +1,15 @@
 <script lang="ts">
+import { defineComponent } from 'vue'
 import Header from '../components/Header.vue'
 import Video from '../components/Video.vue'
 import Sidebar from '../components/Sidebar.vue'
 
-export default {
+export default defineComponent({
   props: {
-    lessonName: String
+    lessonName: { type: String, default: '' }
   },
   computed: {
-    slug () {
+    slug (): string {
       return this.lessonName
     }
   },
@@ -17,7 +18,7 @@ export default {
     Video,
     Sidebar
   }
-}
+})
 </script>
 
 <template>
