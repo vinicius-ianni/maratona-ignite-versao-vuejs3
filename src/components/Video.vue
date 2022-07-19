@@ -20,21 +20,23 @@ export default defineComponent({
   setup (props) {
     provideApolloClient(apolloClient)
 
-    interface teacherItem {
+    /*interface teacherItem {
       avatarURL: String
       bio: String
       name: String
-    }
+    }*/
 
     interface getLessonQueryResponse {
-      id: String
-      title: String
-      slug: String
-      availableAt: String
-      description: String
-      videoId: String
-      lessonType: String
-      teacher: Record<string, teacherItem>
+      lesson: {
+        id: String
+        title: String
+        slug: String
+        availableAt: String
+        description: String
+        videoId: String
+        lessonType: String
+        teacher: { avatarURL: String; bio: String; name: String }
+      }
     }
 
     let slugVar = toRefs(props).lessonSlug
@@ -88,7 +90,7 @@ export default defineComponent({
     <div class="bg-black flex justify-center" v-if="lessonData">
       <div class="h-full w-full max-w-[1100px] max-h[60vh] aspect-video">
         <Player playsinline ref="player" vPlaybackReady="onPlaybackReady">
-          <Youtube crossorigin="" :videoId="lessonData.videoId"></Youtube>
+          <Youtube crossorigin="" :videoId=String(lessonData.videoId)></Youtube>
           <Ui>
             <DefaultUi> </DefaultUi>
           </Ui>
@@ -110,7 +112,7 @@ export default defineComponent({
           <div class="flex items-center gap-4 mt-6">
             <img
               class="h-16 w-16 rounded-full border-2 border-blue-500"
-              :src="lessonData.teacher.avatarURL"
+              :src=String(lessonData.teacher.avatarURL)
             />
             <div class="leading-relaxed">
               <strong class="font-bold text-2xl block"

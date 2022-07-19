@@ -10,6 +10,16 @@ import { isPast, format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 
 export default defineComponent ({
+  /*data() {
+    let lesson = Array<{id: String,
+      title: String,
+      slug: String,
+      availableAt: String,
+      description: String,
+      videoId: String,
+      lessonType: String}>
+      return {lesson}
+  },*/
   setup () {
     const cache = new InMemoryCache()
 
@@ -22,13 +32,14 @@ export default defineComponent ({
     provideApolloClient(apolloClient)
 
     interface getLessonsQueryResponse {
-      id: String
-      title: String
-      slug: String
-      availableAt: String
-      description: String
-      videoId: String
-      type: 'class' | 'live'
+      lessons:[{
+      id: String,
+      title: String,
+      slug: String,
+      availableAt: string,
+      description: String,
+      videoId: String,
+      lessonType: String}]
     }
 
     const LessonsQuery = gql`
@@ -44,7 +55,6 @@ export default defineComponent ({
         }
       }
     `
-
     const { result, loading, error } = useQuery<getLessonsQueryResponse>(LessonsQuery)
 
     const lessonsData = computed(() => result.value?.lessons)
@@ -83,7 +93,7 @@ export default defineComponent ({
           :title="lesson.title"
           :slug="lesson.slug"
           :availableAt="convDate(lesson.availableAt)"
-          :type="lesson.type"
+          :type="lesson.lessonType"
           :IsLessonAvailable="isAvailable(lesson.availableAt)"
         ></Lesson>
       </div>

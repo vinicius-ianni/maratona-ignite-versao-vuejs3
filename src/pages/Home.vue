@@ -8,11 +8,11 @@ import gql from 'graphql-tag'
 export default defineComponent ({
   data () {
     return {
-      userName: { type: String, default: '' },
-      userEmail: { type: String, default: '' },
-      SuccessMessage: { type: String, default: '' },
-      UserIsValid: { type: String, default: 'pending' },
-      EmailIsValid: { type: String, default: 'pending' }
+      userName: '',
+      userEmail: '',
+      SuccessMessage: '',
+      UserIsValid: 'pending',
+      EmailIsValid: 'pending'
     }
   },
   methods: {
@@ -51,9 +51,9 @@ export default defineComponent ({
     submitForm () {
       if (this.UserIsValid === 'valid' && this.EmailIsValid === 'valid') {
         const result = this.saveForm()
-        if (result) {
+        //if (result) {
           this.SuccessMessage = 'Cadastro Enviado !'
-        }
+        //}
       }
     },
     validateForm (formValue: String) :String {
@@ -69,6 +69,7 @@ export default defineComponent ({
         }
         return (this.EmailIsValid = 'valid')
       }
+    return 'invalid';
     }
   },
   components: {
@@ -98,7 +99,7 @@ export default defineComponent ({
         <strong class="text-2xl mb-6 block">
           Inscreva-se gratuitamente
         </strong>
-        <div class="flex flex-col w-full" v-if="SucessMessage !== ''"></div>
+        <div class="flex flex-col w-full" v-if="SuccessMessage !== ''"></div>
         <form
           @submit.prevent="submitForm"
           action=""
